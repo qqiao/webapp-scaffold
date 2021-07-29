@@ -1,0 +1,21 @@
+{
+    "compilerOptions": {
+        "target": "es2018",
+        "module": "esnext",
+        "moduleResolution": "node",
+        "lib": [
+            "es2017",
+            "dom",
+            "dom.iterable"
+        ],
+        "experimentalDecorators": true,
+        "strict": true,
+        "sourceMap": true,
+        "outDir": "dist",
+        "declaration": true
+    },
+    "include": [
+        "src/**/*.ts",
+        "test/**/*.ts"
+    ]
+}
