@@ -21,7 +21,8 @@
   },
   "scripts": {
     "lint": "eslint --ext .ts,.html . --ignore-path .gitignore",
-    "format": "prettier \"**/*.ts\" --write --ignore-path .gitignore"
+    "format": "prettier \"**/*.ts\" --write --ignore-path .gitignore",
+    "test": "jest"
   },
   "packageManager": "yarn@2.4.2",
   "dependencies": {

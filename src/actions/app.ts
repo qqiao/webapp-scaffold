@@ -12,7 +12,7 @@ interface PageResolution {
   params?: string;
 }
 
-export const enum ActionTypes {
+export enum ActionTypes {
   UPDATE_PAGE = "[app] update page",
 }
 
@@ -25,14 +25,14 @@ export const createNavigateFunction =
   <S>(
     getAllPages: GetAllPagesFunction
   ): ActionCreator<ThunkAction<void, S, unknown, ActionUpdatePage>> =>
-  (path: string) =>
-  async (dispatch) => {
-    const allPages = getAllPages();
+    (path: string) =>
+      async (dispatch) => {
+        const allPages = getAllPages();
 
-    const { page, params } = resolvePage(path, allPages);
+        const { page, params } = resolvePage(path, allPages);
 
-    return dispatch({ type: ActionTypes.UPDATE_PAGE, page, params });
-  };
+        return dispatch({ type: ActionTypes.UPDATE_PAGE, page, params });
+      };
 
 /**
  * resolvePage takes a given path and a list of pages and finds the page with
