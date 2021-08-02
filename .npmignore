@@ -1,0 +1,12 @@
+*.ts
+!*.d.ts
+*.test.*
+tsconfig.json
+
+*.yml
+*.cjs
+*.md
+
+.yarn/
+.vscode/
+.github/

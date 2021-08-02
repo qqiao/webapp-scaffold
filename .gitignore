@@ -5,4 +5,8 @@
 !.yarn/sdks
 !.yarn/versions
 
+*.d.ts
+*.js
+*.map
+
 dist/
