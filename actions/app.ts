@@ -7,6 +7,10 @@ export type GetAllPagesFunction = {
   (): Page[] | undefined;
 };
 
+export type PageLoaderFunction = {
+  (page?: Page, params?: string): Promise<void>;
+}
+
 interface PageResolution {
   page?: Page;
   params?: string;
@@ -23,13 +27,15 @@ export interface ActionUpdatePage extends Action<ActionTypes.UPDATE_PAGE> {
 
 export const createNavigateFunction =
   <S>(
-    getAllPages: GetAllPagesFunction
+    getAllPages: GetAllPagesFunction,
+    pageLoader: PageLoaderFunction
   ): ActionCreator<ThunkAction<void, S, unknown, ActionUpdatePage>> =>
     (path: string) =>
       async (dispatch) => {
         const allPages = getAllPages();
 
         const { page, params } = resolvePage(path, allPages);
+        await pageLoader(page, params)
 
         return dispatch({ type: ActionTypes.UPDATE_PAGE, page, params });
       };
