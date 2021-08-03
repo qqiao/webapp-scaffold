@@ -4,7 +4,7 @@ import { ThunkAction } from "redux-thunk";
 import { Page } from "../data/app";
 
 export interface GetAllPagesFunction<S, P extends Page> {
-  (state?: S): P[] | undefined;
+  (state: S): P[] | undefined;
 }
 
 export interface PageLoaderFunction<P extends Page> {
