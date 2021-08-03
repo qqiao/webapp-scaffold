@@ -1,6 +1,6 @@
 {
   "name": "@qqiao/webapp-scaffold",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "Scaffolding for web applications",
   "main": "index.js",
   "repository": "https://github.com/qqiao/webapp-scaffold.git",
@@ -24,7 +24,8 @@
     "build": "jest && tsc",
     "lint": "eslint --ext .ts,.html . --ignore-path .gitignore",
     "format": "prettier \"**/*.ts\" --write --ignore-path .gitignore",
-    "test": "jest"
+    "test": "jest",
+    "prepublish": "npm run build"
   },
   "packageManager": "yarn@2.4.2",
   "dependencies": {
