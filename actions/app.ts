@@ -36,7 +36,7 @@ export const createNavigateFunction =
     const allPages = getAllPages(getState());
 
     const { page, params } = resolvePage(path, allPages);
-    await pageLoader(page);
+    pageLoader(page);
 
     return dispatch({ type: ActionTypes.UPDATE_PAGE, page, params });
   };
