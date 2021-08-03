@@ -3,16 +3,16 @@ import { ThunkAction } from "redux-thunk";
 
 import { Page } from "../data/app";
 
-export interface GetAllPagesFunction {
-  (): Page[] | undefined;
+export interface GetAllPagesFunction<P extends Page> {
+  (): P[] | undefined;
 }
 
-export interface PageLoaderFunction {
-  (page?: Page, params?: string): Promise<void>;
+export interface PageLoaderFunction<P extends Page> {
+  (page?: P): Promise<void>;
 }
 
-interface PageResolution {
-  page?: Page;
+interface PageResolution<P extends Page> {
+  page?: P;
   params?: string;
 }
 
@@ -20,22 +20,23 @@ export enum ActionTypes {
   UPDATE_PAGE = "[app] update page",
 }
 
-export interface ActionUpdatePage extends Action<ActionTypes.UPDATE_PAGE> {
-  page?: Page;
+export interface ActionUpdatePage<P extends Page>
+  extends Action<ActionTypes.UPDATE_PAGE> {
+  page?: P;
   params?: string;
 }
 
 export const createNavigateFunction =
-  <S>(
-    getAllPages: GetAllPagesFunction,
-    pageLoader: PageLoaderFunction
-  ): ActionCreator<ThunkAction<void, S, unknown, ActionUpdatePage>> =>
+  <S, P extends Page>(
+    getAllPages: GetAllPagesFunction<P>,
+    pageLoader: PageLoaderFunction<P>
+  ): ActionCreator<ThunkAction<void, S, unknown, ActionUpdatePage<P>>> =>
   (path: string) =>
   async (dispatch) => {
     const allPages = getAllPages();
 
     const { page, params } = resolvePage(path, allPages);
-    await pageLoader(page, params);
+    await pageLoader(page);
 
     return dispatch({ type: ActionTypes.UPDATE_PAGE, page, params });
   };
@@ -50,8 +51,11 @@ export const createNavigateFunction =
  * @param path the path to search for a page that best matches
  * @param pages the list of pages
  */
-export const resolvePage = (path: string, pages?: Page[]): PageResolution => {
-  let bestMatch: Page | undefined;
+export const resolvePage = <P extends Page>(
+  path: string,
+  pages?: P[]
+): PageResolution<P> => {
+  let bestMatch: P | undefined;
   pages?.some((page) => {
     // When path exactly matches the URL pattern, we know for certain that
     // this is the best possible match
@@ -62,7 +66,7 @@ export const resolvePage = (path: string, pages?: Page[]): PageResolution => {
 
     if (
       path.startsWith(page.urlPattern) &&
-      (!bestMatch || page.urlPattern.length > bestMatch?.urlPattern?.length)
+      (!bestMatch || page.urlPattern.length > bestMatch.urlPattern?.length)
     ) {
       bestMatch = page;
     }
