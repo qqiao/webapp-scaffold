@@ -3,8 +3,8 @@ import { ThunkAction } from "redux-thunk";
 
 import { Page } from "../data/app";
 
-export interface GetAllPagesFunction<P extends Page> {
-  (): P[] | undefined;
+export interface GetAllPagesFunction<S, P extends Page> {
+  (state?: S): P[] | undefined;
 }
 
 export interface PageLoaderFunction<P extends Page> {
@@ -28,12 +28,12 @@ export interface ActionUpdatePage<P extends Page>
 
 export const createNavigateFunction =
   <S, P extends Page>(
-    getAllPages: GetAllPagesFunction<P>,
+    getAllPages: GetAllPagesFunction<S, P>,
     pageLoader: PageLoaderFunction<P>
   ): ActionCreator<ThunkAction<void, S, unknown, ActionUpdatePage<P>>> =>
   (path: string) =>
-  async (dispatch) => {
-    const allPages = getAllPages();
+  async (dispatch, getState) => {
+    const allPages = getAllPages(getState());
 
     const { page, params } = resolvePage(path, allPages);
     await pageLoader(page);
