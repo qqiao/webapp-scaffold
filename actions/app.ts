@@ -1,7 +1,7 @@
-import { Action, ActionCreator, AnyAction } from "redux";
-import { ThunkAction } from "redux-thunk";
+import { Action, ActionCreator } from 'redux';
+import { ThunkAction } from 'redux-thunk';
 
-import { Page } from "../data/app";
+import { Page } from '../data/app';
 
 export interface GetAllPagesFunction<S, P extends Page> {
   (state: S): P[] | undefined;
@@ -17,7 +17,7 @@ interface PageResolution<P extends Page> {
 }
 
 export enum ActionTypes {
-  UPDATE_PAGE = "[app] update page",
+  UPDATE_PAGE = '[app] update page',
 }
 
 export interface ActionUpdatePage<P extends Page>
@@ -75,7 +75,7 @@ export const resolvePage = <P extends Page>(
 
   let params: string | undefined;
   if (bestMatch) {
-    const _params = path.replace(bestMatch.urlPattern, "");
+    const _params = path.replace(bestMatch.urlPattern, '');
     if (_params.length > 0) params = _params;
   }
   return {
