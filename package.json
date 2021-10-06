@@ -1,6 +1,6 @@
 {
   "name": "@qqiao/webapp-scaffold",
-  "version": "0.0.9-rc1",
+  "version": "0.0.9",
   "description": "Scaffolding for web applications",
   "main": "index.js",
   "repository": "https://github.com/qqiao/webapp-scaffold.git",
